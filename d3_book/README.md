@@ -1,4 +1,4 @@
-# D3.js 
+# D3.js
 
 [![N|Solid](https://books.google.ru/books/content?id=p_SmE74sVtwC&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE73z6JwzZfoNUO143yoZDfk-8K9owCkAAjGNkYZmf3zdZ2Qn_LXNshnYfOpFKHEHvagXKE9F_v08Vpx_5WdHDTIt0fjuD1CrQ0B7YAEvrFURn7_vx31gJY5jpsO7mzcBw53piWZn)](https://www.oreilly.com/library/view/interactive-data-visualization/9781449340223/)
 
@@ -10,5 +10,7 @@ I am learning D3.js use this book, check my git Danil-Gromakov/D3_to_learn
 > what is data() and how to monipulete with attr()
 > > **last page 110**
 
-
-
+- **index_day_3.html** - 29.06.2020
+> I read about **Enter, Update, Exit** and make some examples,
+> But I have to do more example, before to continue and re-read.
+> > **last page 190 Chapter 10 Interactivity**
