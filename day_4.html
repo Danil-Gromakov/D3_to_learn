@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Practise D3.js</title>
+      <script src="https://d3js.org/d3.v5.min.js"></script>
+  </head>
+
+  <body>
+
+    <svg width="100" height="80" style="background-color:#bff;">
+        <rect x="50" y="0" width="10" height="10" transform="rotate(45)"/>
+    </svg>
+    <br>
+    <h3>Bar chart</h3>
+    <svg id = "bar"></svg>
+
+    <script type="text/javascript">
+      // 1) data
+      let dataset = [80, 100, 56, 190, 310, 30, 40, 120,30,30];
+      // 2) prepare vars
+      let svgWidth = 500,svgHeight = 400, barPadding=5, marginTop = 20;
+      let barWidth =(svgWidth/dataset.length);
+      // 3) make svg base
+      let svg = d3.select("#bar")
+                  .attr("width",svgWidth)
+                  .attr("height",svgHeight)
+                  .style("background-color","lightgreen");
+      // 4) Prepare SCALE use data for it, below you will
+      // use it for correct scale
+
+      let yScale = d3.scaleLinear()
+                    .domain([0,d3.max(dataset)])
+                    .range([0,svgHeight-marginTop]);
+
+
+
+      let xScale = d3.scaleLinear()
+                    .domain([0,d3.max(dataset)])
+                    .range([0,svgWidth]);
+
+      // 4.1)
+      // let x_axis = d3.axisBottom()
+      //                 .scale(xScale)
+      // let y_axis = d3.axisBottom()
+      //                 .scale(yScale)
+      //
+      // svg.append("g")
+      //     .attr("transform","translate(50,10)")
+      //     .call(y_axis)
+
+
+      // 5) Make bar chart
+      let barChart = svg.selectAll("rect")
+                        .data(dataset)
+                        .enter()
+                        .append("rect")
+
+                        // POSITION do somethig and add to scale machine
+
+                        .attr("y",function(d){
+                          //return svgHeight - d;
+                          return svgHeight - yScale(d);
+                        })
+                        .attr("height",function(d){
+                          // return d;
+                          return yScale(d);
+                        })
+                        .attr("width",barWidth-barPadding)
+                        // x
+                        .attr("transform",function(d,i){
+                          let translate = [barWidth*i,0];
+                          return "translate("+translate+")";
+                        })
+                        .attr("fill","pink")
+      // 6) add labels, labels like bar need POSITION and scale
+      let text = svg.selectAll("text")
+                    .data(dataset)
+                    .enter()
+                    .append("text")
+                    .text(d=>d)
+                    .attr("y",function(d,i){
+                      return svgHeight-yScale(d)-5;
+                    })
+                    .attr("x",function(d,i){
+                      return barWidth*i;
+                    })
+                    .attr("fill","blue")
+      // 7) AXes
+
+      //
+      let yScaleAxes = d3.scaleLinear()
+                    .domain([0,d3.max(dataset)])
+                    .range([svgHeight-marginTop,0]);
+      // let x_axis = d3.axisBottom()
+      //                 .scale(xScale)
+      let x_axis = d3.axisBottom(xScale).ticks(5)
+      let y_axis = d3.axisLeft(yScaleAxes).ticks(5)
+
+      // let y_axis = d3.axisLeft()
+      //                 .scale(yScale)
+
+       svg.append("g")
+           .attr("transform","translate(40,0)")
+           .call(y_axis)
+
+      let xAxisTranslate = svgHeight - 20;
+
+      svg.append("g")
+          .attr("transform", "translate(40, " + xAxisTranslate  +")")
+          .call(x_axis);
+
+    </script>
+    <br>
+    <a href="http://coldfox.ru/article/5caa4af557e5ea367d50193c/d3-js-%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D1%8B">Source of example bar_chart</a>
+    <br>
+    <h3>Pie chart</h3>
+    <svg id="pie">
+
+    </svg>
+    <script type="text/javascript">
+
+          let data = [
+                      {"platform": "Android", "percentage": 40.11},
+                      {"platform": "Windows", "percentage": 36.69},
+                      {"platform": "iOS", "percentage": 13.06}
+                    ];
+
+          let svgW = 500, svgH = 300, radius = Math.min(svgW,svgH)/2;
+          let svgP = d3.select('#pie')
+                  .attr("width",svgW)
+                  .attr("height",svgH);
+
+          // Create group (g) to hold pie chart
+          let g = svgP.append("g")
+                  .attr("transform", "translate(" + radius + "," + radius + ")") ;
+          let color = d3.scaleOrdinal(d3.schemeCategory10);
+
+          let pie = d3.pie().value(function(d){
+            return d.percentage;
+          })
+
+          let path = d3.arc()
+                      .outerRadius(radius)
+                      .innerRadius(30);
+
+          let arc  =g.selectAll("arc")
+                    .data(pie(data))
+                    .enter()
+                    .append("g")
+
+              arc.append("path")
+                  .attr("d",path)
+                  .attr("fill", function(d) { return color(d.data.percentage); });
+          let label = d3.arc()
+                    .outerRadius(radius)
+                    .innerRadius(0);
+
+          arc.append("text")
+              .attr("transform", function(d) {
+                  return "translate(" + label.centroid(d) + ")";
+              })
+              .attr("text-anchor", "middle")
+              .text(function(d) { return d.data.platform+":"+d.data.percentage+"%"; });
+
+    </script>
+  </body>
+</html>

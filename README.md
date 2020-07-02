@@ -14,3 +14,7 @@ I am learning D3.js use this book, check my git Danil-Gromakov/D3_to_learn
 > I read about **Enter, Update, Exit** and make some examples,
 > But I have to do more example, before to continue and re-read.
 > > **last page 190 Chapter 10 Interactivity**
+- **day_4.html**
+> I made some bar charts and have understood every row of code
+> Next step to make more difficult bar chart with dinamic data (read book 'Update data')
+> > 
