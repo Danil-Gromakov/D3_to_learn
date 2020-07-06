@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+  </head>
+  <body>
+    <!-- <a href="https://observablehq.com/@d3/histogram">Histogram</a> -->
+    <p>07.06</p>
+    <button type="button" name="button">Update</button>
+    <br>
+
+    <script type="text/javascript">
+    let w = 500;
+    let h = 300;
+
+
+
+    let dataset = [ 5, 10, 13, 19, 21, 25, 20, 13,
+                    19, 21, 25, 20, 18, 15, 13,19, 21, 25, 22, 18, 15, 13 ];
+
+
+
+
+    // CHART
+    let svg = d3.select("body")
+                .append("svg")
+                .attr("width",w)
+                .attr("height",h)
+                .style("background-color","pink");
+
+    let yScale = d3.scaleLinear()
+                  .domain([0,d3.max(dataset)])
+                  .range([0,h])
+    // let xScale = d3.scaleLinear()
+    //               .domain(d3.range(dataset.length))
+    //               .range([0,w])
+    var xScale = d3.scaleBand()
+        .domain(d3.range(dataset.length))
+        .rangeRound([0, w]) // <-- Also enables rounding
+        .paddingInner(0.05);
+
+    svg.selectAll("rect")
+      .data(dataset)
+      .enter()
+      .append("rect")
+
+      .attr("width",w/dataset.length-3)
+      // .attr("x",(d,i)=>i*w/dataset.length)
+      .attr("x",(d,i)=>xScale(i))
+
+      .attr("height",d=>yScale(d))
+      .attr("y",d=> h - yScale(d)+20);
+
+    let text = svg.selectAll("text")
+        .data(dataset)
+        .enter()
+        .append("text")
+        .text(d=>d)
+        .attr("y",d=> h - yScale(d)+40)
+        .attr("x",(d,i)=>xScale(i))
+        .attr("fill","#fff");
+
+    d3.select("button")
+      .on("click",function(){
+          // svg.style("background-color","red")
+          dataset = [ 11, 12, 15, 20, 18, 17, 16, 18, 23, 25,
+              5, 10, 13, 19, 21, 40, 22, 2, 15, 13 ];
+
+              yScale = d3.scaleLinear()
+                            .domain([0,d3.max(dataset)])
+                            .range([0,h])
+
+          svg.selectAll("rect")
+            .data(dataset)
+            .attr("height",d=>yScale(d))
+            .attr("y",d=> h - yScale(d)+20);
+
+            svg.selectAll("text")
+                .data(dataset)
+                // .enter()
+                // .append("text")
+                .text(d=>d)
+                .attr("y",d=> h - yScale(d)+40)
+                .attr("x",(d,i)=>xScale(i))
+      });
+
+      // page 158 Transitions
+
+
+    </script>
+  </body>
+</html>

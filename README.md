@@ -17,4 +17,6 @@ I am learning D3.js use this book, check my git Danil-Gromakov/D3_to_learn
 - **day_4.html**
 > I made some bar charts and have understood every row of code
 > Next step to make more difficult bar chart with dinamic data (read book 'Update data')
-> > 
+> >
+- **index_5.html**
+> > page 158 Transtion,Upgrade data  
