@@ -20,3 +20,5 @@ I am learning D3.js use this book, check my git Danil-Gromakov/D3_to_learn
 > >
 - **index_5.html**
 > > page 158 Transtion,Upgrade data  
+>
+> > --> page 195 **TIME TO CHAPTER 10** "INTERACTIVITY" 

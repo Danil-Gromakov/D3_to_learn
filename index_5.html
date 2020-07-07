@@ -7,7 +7,7 @@
   </head>
   <body>
     <!-- <a href="https://observablehq.com/@d3/histogram">Histogram</a> -->
-    <p>07.06</p>
+    <p>07.07</p>
     <button type="button" name="button">Update</button>
     <br>
 
@@ -68,17 +68,41 @@
           dataset = [ 11, 12, 15, 20, 18, 17, 16, 18, 23, 25,
               5, 10, 13, 19, 21, 40, 22, 2, 15, 13 ];
 
+
+              let numValues = dataset.length;
+                    //Count original length of dataset
+                    dataset = [];
+                    //Initialize empty array
+                    for (var i = 0; i < numValues; i++) {
+                    //Loop numValues times
+                    let newNumber = Math.floor(Math.random() * 100); //New random integer (0-24)
+                    dataset.push(newNumber);
+                    //Add new number to array
+                    }
+
               yScale = d3.scaleLinear()
                             .domain([0,d3.max(dataset)])
                             .range([0,h])
+              // xScale = d3.scaleBand()
+              //   .domain(d3.range(dataset.length))
+              //   .rangeRound([0, w]) // <-- Also enables rounding
+              //   .paddingInner(0.05);
 
           svg.selectAll("rect")
             .data(dataset)
+            .transition()
+            .duration(1000)
+            .ease(d3.easeLinear)
+
             .attr("height",d=>yScale(d))
             .attr("y",d=> h - yScale(d)+20);
 
             svg.selectAll("text")
                 .data(dataset)
+
+                .transition()
+                .duration(1000)
+                .ease(d3.easeLinear)
                 // .enter()
                 // .append("text")
                 .text(d=>d)
