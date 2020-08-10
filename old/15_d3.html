@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>INTERACTIVITY 200</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+  </head>
+  <body>
+    <style media="screen">
+      p:hover{
+        color:red;
+      }
+    </style>
+    <script type="text/javascript">
+    let dataset = [1,2,3,4]
+
+    d3.select("body").selectAll("p")
+      .data(dataset)
+      .enter()
+      .append("p")
+      .text(d => "NEW\t" + d)
+      .on("click", function(d) {
+      //Do something on click
+        console.log(d);
+        })
+      .on("mouseover", function() {
+        d3.select(this)
+        .style("color", "orange");
+      });
+
+
+
+    </script>
+
+  </body>
+</html>
