@@ -6,7 +6,8 @@
 
 ### UPD
 
-- index_graph.html
+- **index_graph.html**
+
 I have learned **force layout** how to make basik Network Graph
 
 last page 280 chapter 14 **GEOMAPING**
